@@ -7,7 +7,7 @@ IMPORT-HASKELL List
 
 THEOREM prod_mul
 
-            product (xs++ys)   ==   product xs * product ys
+    product (xs++ys)   ==   product xs * product ys
 
 STRATEGY Induction xs :: List
 
@@ -51,13 +51,15 @@ STRATEGY ReduceBoth
     x * product(xs ++ ys)
 
     RHS
-
+    
     product (x:xs) * product ys
      = DEF product.2
     x * product xs * product ys
-     = INDHYP r2l @ product
-    x * product (xs++ys)
+     = LAW mul_assoc r2l
+    x * (product xs * product ys)
+     = INDHYP r2l @ * 2
+    x * product (xs ++ ys)
 
 QED STEP
 
-QED prods_mul
+QED prod_mul
